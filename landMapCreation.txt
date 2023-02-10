@@ -1,0 +1,120 @@
+#include <random>
+
+// imported for testing
+
+class LandChance {
+private:
+string type;
+int chance;
+public:
+void LandChance(string t, int c) {
+		this->type = t;
+		this->chance = c;
+	}
+string getType() { return this->type; }
+void setType(string t) { this->type = t; }
+string getChance() {return this->chance; }
+void setChance(int c) { this->chance = c; }
+}
+
+
+// comparison function
+bool between(int lower, int upper, int input) {
+
+if ((unsigned(input-lower) <= (upper-lower)) return true;
+
+}
+
+
+// return value assigned to range
+int rangeResult(int n) {
+
+for (i = 0; i < len(ranges); i++) {
+	if between(ranges[i].a, ranges[i].b, n) return i;
+	}
+
+}
+
+// range pairs for comparisons
+class rangePair {
+private:
+int a;
+int b;
+public:
+rangePair(int a, int b) {
+	this.a = a;
+	this.b = b;
+	}
+int getA(){ return a; }
+int getB(){ return b; }
+}
+
+
+// assign integers to ranges and return the total range [1,n]
+int createRanges(int[] chances) {
+rangePair ranges[length(chances)];
+int input;
+int sum;
+int a;
+int b;
+
+for (i = 0; i < length(chances); i++) {
+	input = chances[i];
+	if (i == 0) sum = 0;
+	a = sum + 1;
+	b = sum + input;
+	ranges[i].rangePair(a, b);	
+	}
+return sum;
+}
+
+
+
+
+
+// process desired map size and starting information into a 2-D integer array for use
+int[][] returnLandTypeIntArray(int length, int height, landPercent[] landPairs) {
+
+//create array of chances
+int[] chances;
+for (std::size_t i = 0; i != (sizeof landPairs / sizeof *landPairs); i++) {
+	chances [i] = landPairs[i];
+	}
+//create array of ranges and establish max range value
+int maxRoll = createRanges(chances);
+
+//set up random number generation
+std::random_device rd;  // seed
+std::mt19937 gen(rd()); // generator
+std::uniform_int_distribution<> distrib(1, maxRoll); // distribution range
+
+
+
+//create 2D array of integer values
+int landTypes[height][length];
+//describe map size (length by height)
+// for (height)
+//      for (length)
+
+//assign array values resulting from range comparison
+for (int j = 0; j < height; j++ {
+
+	for (int i = 0; i < length; i++ {
+		landTypes[j][i] = rangeResult(distrib(gen));
+		}
+
+	}
+
+}
+
+
+
+int main() {
+landChance[] landPairs = {("dirt", 20), ("rocks", 20), ("clay", 40)};
+int[][] land = returnLandTypeIntArray(10,10,landPairs);
+for (int j=0; j<10; j++) {
+	std::cout << "\n";
+	for (int i=0; i<10; i++) { std::cout << string(land[j][i] << " "; }
+	}
+	
+}
